@@ -1,17 +1,43 @@
 import React from "react";
 import styled from "styled-components";
 
-function Messages({ chat, messages }) {
+function Messages({ chat, messages, setMessages }) {
+  const handler = React.useCallback(
+    (message) => {
+      setMessages((current) => [
+        {
+          id: current.length + 1,
+          message: message,
+          date: new Date(),
+          sender: "me",
+        },
+        ...current,
+      ]);
+      setTimeout(() => {
+        setMessages((current) => [
+          {
+            id: current.length + 1,
+            message: "I am a bot",
+            date: new Date(),
+            sender: "bot",
+          },
+          ...current,
+        ]);
+      }, Math.random() * 1000);
+    },
+    [setMessages]
+  );
+
   return (
     <Wrapper>
       <MessagesToolbar chat={chat} />
       <MessageList messages={messages} />
-      <MessageInput />
+      <MessageInput handler={handler} />
     </Wrapper>
   );
 }
 
-function MessagesToolbar({ chat }) {
+function uncachedMessagesToolbar({ chat }) {
   return (
     <Header className="messagesToolbar">
       <div className="icon">{chat.icon}</div>
@@ -20,6 +46,7 @@ function MessagesToolbar({ chat }) {
     </Header>
   );
 }
+const MessagesToolbar = React.memo(uncachedMessagesToolbar);
 
 function MessageList({ messages }) {
   return (
@@ -31,24 +58,33 @@ function MessageList({ messages }) {
   );
 }
 
-function Message({ message }) {
+const Message = React.memo(({ message }) => {
   return (
     <Item className={`${message.sender === "me" ? "myself" : "other"}`}>
       <span className="sender">{message.sender}</span>
       <span className={`message`}>{message.message}</span>
     </Item>
   );
-}
+});
 
-function MessageInput() {
+const MessageInput = React.memo(({ handler }) => {
+  const inputRef = React.useRef();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (!inputRef.current.value) return;
+
+    handler(inputRef.current.value);
+    inputRef.current.value = "";
+  }
   return (
-    <Form className="messageInput">
+    <Form className="messageInput" onSubmit={handleSubmit}>
       <fieldset>
-        <input type="text" placeholder="Type a message" />
+        <input ref={inputRef} type="text" placeholder="Type a message" />
       </fieldset>
     </Form>
   );
-}
+});
 
 const Wrapper = styled.div`
   display: flex;
@@ -62,8 +98,8 @@ const Header = styled.header`
 
 const List = styled.ol`
   display: flex;
+  flex-direction: column-reverse;
   gap: 8px;
-  flex-direction: column;
   list-style-type: none;
   height: 100vh;
   overflow-y: auto;

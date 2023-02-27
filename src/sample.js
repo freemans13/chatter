@@ -310,4 +310,8 @@ let messages = [
   },
 ];
 
-export { chats, messages };
+const sample = {
+  chats,
+  messages: messages.reverse(),
+};
+export { sample };

@@ -4,30 +4,40 @@ import { Search, ChatList } from "./components/Chats";
 import Messages from "./components/Messages";
 import styled from "styled-components/macro";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
-import { chats, messages } from "./sample";
+import React from "react";
+import { sample } from "./sample";
 
 function App() {
+  const [chats, setChats] = React.useState(sample.chats);
+  const [messages, setMessages] = React.useState(sample.messages);
   return (
     <Wrapper>
-      <LeftColumn>
-        <Toolbar />
-        <Search />
-        <ChatList chats={chats} />
-      </LeftColumn>
+      <LeftColumn chats={chats} />
       <RightColumn>
-        <Messages chat={chats[0]} messages={messages} />
+        <Messages
+          chat={chats[0]}
+          messages={messages}
+          setMessages={setMessages}
+        />
       </RightColumn>
     </Wrapper>
   );
 }
+
+const Left = React.memo(({ chats }) => (
+  <div>
+    <Toolbar />
+    <Search />
+    <ChatList chats={chats} />
+  </div>
+));
 
 const Wrapper = styled.div`
   display: flex;
   gap: 16px;
 `;
 
-const LeftColumn = styled.div`
+const LeftColumn = styled(Left)`
   min-width: 400px;
   flex: 1;
 `;
