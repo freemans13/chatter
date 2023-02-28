@@ -2,33 +2,45 @@ import { MagnifyingGlassIcon, ScissorsIcon } from "@radix-ui/react-icons";
 import Toolbar from "./Toolbar";
 import styled from "styled-components/macro";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import React from "react";
+
+const M = {}; // all Memo'd stuff here
+const S = {}; // all Styled stuff here
+
+const Chats = React.memo(({ className, chats }) => (
+  <S.Div className={className}>
+    <Toolbar />
+    <Search />
+    <List chats={chats} />
+  </S.Div>
+));
 
 function Search() {
   return (
-    <Form className="search">
+    <S.Form>
       <fieldset>
         <button>
           <MagnifyingGlassIcon width="24" height="24" />
         </button>
         <input type="search" placeholder="Search" />
       </fieldset>
-    </Form>
+    </S.Form>
   );
 }
 
-function ChatList({ chats }) {
+function List({ chats }) {
   return (
-    <List className="chatList">
+    <S.Ul>
       {chats.map((chat) => (
-        <ChatItem key={chat.id} chat={chat} />
+        <Item key={chat.id} chat={chat} />
       ))}
-    </List>
+    </S.Ul>
   );
 }
 
-function ChatItem({ chat }) {
+function Item({ chat }) {
   return (
-    <Item className="chatItem">
+    <S.Li>
       <div className="icon">{chat.icon}</div>
       <section>
         <header>
@@ -41,11 +53,17 @@ function ChatItem({ chat }) {
           <div className="unreadMessageCount">{chat.unreadMessageCount}</div>
         </footer>
       </section>
-    </Item>
+    </S.Li>
   );
 }
 
-const Form = styled.form`
+S.Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
+S.Form = styled.form`
   fieldset {
     display: flex;
     border: none;
@@ -57,14 +75,13 @@ const Form = styled.form`
   }
 `;
 
-const List = styled.ul`
+S.Ul = styled.ul`
   padding: 0;
-  height: 100vh;
   overflow-y: auto;
+  /* list-style-type: none; */
 `;
 
-const Item = styled.li`
-  list-style-type: none;
+S.Li = styled.li`
   flex: 1;
   display: flex;
 
@@ -113,4 +130,4 @@ const Item = styled.li`
   }
 `;
 
-export { Search, ChatList };
+export default Chats;

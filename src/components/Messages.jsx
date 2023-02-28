@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-function Messages({ chat, messages, setMessages }) {
+const M = {}; // all Memo'd stuff here
+const S = {}; // all Styled stuff here
+
+function Messages({ className, chat, messages, setMessages }) {
   const handler = React.useCallback(
     (message) => {
       setMessages((current) => [
@@ -29,74 +32,75 @@ function Messages({ chat, messages, setMessages }) {
   );
 
   return (
-    <Wrapper>
-      <MessagesToolbar chat={chat} />
-      <MessageList messages={messages} />
-      <MessageInput handler={handler} />
-    </Wrapper>
+    <S.Div className={className}>
+      <M.Toolbar chat={chat} />
+      <List messages={messages} />
+      <M.Input handler={handler} />
+    </S.Div>
   );
 }
 
-function uncachedMessagesToolbar({ chat }) {
+function Toolbar({ chat }) {
   return (
-    <Header className="messagesToolbar">
+    <S.Header className="messagesToolbar">
       <div className="icon">{chat.icon}</div>
       <div className="chatHeading">{chat.chatHeading}</div>
       <div className="lastMessageTime">{chat.lastMessageTime}</div>
-    </Header>
+    </S.Header>
   );
 }
-const MessagesToolbar = React.memo(uncachedMessagesToolbar);
+M.Toolbar = React.memo(Toolbar);
 
-function MessageList({ messages }) {
+function List({ messages }) {
   return (
-    <List className="messages">
+    <S.Ol className="messages">
       {messages.map((message) => (
-        <Message key={message.id} message={message} />
+        <M.Item key={message.id} message={message} />
       ))}
-    </List>
+    </S.Ol>
   );
 }
 
-const Message = React.memo(({ message }) => {
+function Item({ message }) {
   return (
-    <Item className={`${message.sender === "me" ? "myself" : "other"}`}>
+    <S.Li className={`${message.sender === "me" ? "myself" : "other"}`}>
       <span className="sender">{message.sender}</span>
       <span className={`message`}>{message.message}</span>
-    </Item>
+    </S.Li>
   );
-});
+}
+M.Item = React.memo(Item);
 
-const MessageInput = React.memo(({ handler }) => {
-  const inputRef = React.useRef();
-
-  function handleSubmit(event) {
+function Input({ handler }) {
+  const ref = React.useRef();
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (!inputRef.current.value) return;
+    if (!ref.current.value) return;
+    handler(ref.current.value);
+    ref.current.value = "";
+  };
 
-    handler(inputRef.current.value);
-    inputRef.current.value = "";
-  }
   return (
-    <Form className="messageInput" onSubmit={handleSubmit}>
+    <S.Form onSubmit={handleSubmit}>
       <fieldset>
-        <input ref={inputRef} type="text" placeholder="Type a message" />
+        <input type="text" placeholder="Type a message" ref={ref} />
       </fieldset>
-    </Form>
+    </S.Form>
   );
-});
+}
+M.Input = React.memo(Input);
 
-const Wrapper = styled.div`
+S.Div = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
 `;
 
-const Header = styled.header`
+S.Header = styled.header`
   display: flex;
 `;
 
-const List = styled.ol`
+S.Ol = styled.ol`
   display: flex;
   flex-direction: column-reverse;
   gap: 8px;
@@ -107,7 +111,7 @@ const List = styled.ol`
   flex: 1;
 `;
 
-const Item = styled.li`
+S.Li = styled.li`
   background-color: burlywood;
   border-radius: 16px;
   padding: 8px;
@@ -121,7 +125,7 @@ const Item = styled.li`
   }
 `;
 
-const Form = styled.form`
+S.Form = styled.form`
   fieldset {
     border: none;
     /* flex: 1; */
