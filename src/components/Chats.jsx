@@ -1,19 +1,23 @@
-import { MagnifyingGlassIcon, ScissorsIcon } from "@radix-ui/react-icons";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import Toolbar from "./Toolbar";
+import ChatIcon from "./ChatIcon";
 import styled from "styled-components/macro";
-import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import React from "react";
 
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
 
-const Chats = React.memo(({ className, chats }) => (
-  <S.Div className={className}>
-    <Toolbar />
-    <Search />
-    <List chats={chats} />
-  </S.Div>
-));
+function Chats({ className, chats }) {
+  return (
+    <S.Div className={className}>
+      <Toolbar />
+      <Search />
+      <List chats={chats} />
+    </S.Div>
+  );
+}
+
+M.Chats = React.memo(Chats);
 
 function Search() {
   return (
@@ -41,7 +45,7 @@ function List({ chats }) {
 function Item({ chat }) {
   return (
     <S.Li>
-      <div className="icon">{chat.icon}</div>
+      <ChatIcon />
       <section>
         <header>
           <div className="header">{chat.chatHeading}</div>
@@ -93,11 +97,11 @@ S.Li = styled.li`
   .icon {
     /* image */
     width: 48px;
+    height: 48px;
     margin: 8px;
-    padding: 0 0 0 8px;
-    font-size: 2rem;
+    padding: 0 0 0 0px;
     border-radius: 50%;
-    overflow: none;
+    overflow: hidden;
     background-color: #ccc;
   }
   section {
@@ -130,4 +134,4 @@ S.Li = styled.li`
   }
 `;
 
-export default Chats;
+export default M.Chats;

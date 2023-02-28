@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ChatIcon from "./ChatIcon";
 
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
@@ -43,9 +44,11 @@ function Messages({ className, chat, messages, setMessages }) {
 function Toolbar({ chat }) {
   return (
     <S.Header className="messagesToolbar">
-      <div className="icon">{chat.icon}</div>
-      <div className="chatHeading">{chat.chatHeading}</div>
-      <div className="lastMessageTime">{chat.lastMessageTime}</div>
+      <ChatIcon />
+      <div>
+        <div className="header">{chat.chatHeading}</div>
+        <div>{chat.contacts.join(", ")}</div>
+      </div>
     </S.Header>
   );
 }
@@ -98,6 +101,10 @@ S.Div = styled.div`
 
 S.Header = styled.header`
   display: flex;
+  .header {
+    padding-top: 8px;
+    font-weight: bold;
+  }
 `;
 
 S.Ol = styled.ol`
@@ -107,8 +114,9 @@ S.Ol = styled.ol`
   list-style-type: none;
   height: 100vh;
   overflow-y: auto;
-  margin-right: 8px;
   flex: 1;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
 `;
 
 S.Li = styled.li`

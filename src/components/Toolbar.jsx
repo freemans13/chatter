@@ -3,12 +3,13 @@ import * as Toolbar from "@radix-ui/react-toolbar";
 import {
   Pencil2Icon,
   GearIcon,
-  StrikethroughIcon,
-  TextAlignLeftIcon,
-  TextAlignCenterIcon,
-  TextAlignRightIcon,
-  FontBoldIcon,
-  FontItalicIcon,
+  // ChatBubbleIcon
+  // StrikethroughIcon,
+  // TextAlignLeftIcon,
+  // TextAlignCenterIcon,
+  // TextAlignRightIcon,
+  // FontBoldIcon,
+  // FontItalicIcon,
 } from "@radix-ui/react-icons";
 import "./Toolbar.css";
 
