@@ -1,53 +1,47 @@
 import React from "react";
 import styled from "styled-components";
 import ChatIcon from "./ChatIcon";
+import * as API from "../api";
 
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
 
-function Messages({ className, chat, messages, setMessages }) {
-  const handler = React.useCallback(
+function Messages({ className, chatId }) {
+  const { data: chat = {}, isLoading: isLoadingChat, error: isErrorChat } = API.useChat(chatId);
+  const { data: messages = [], isLoading: isLoadingMessages, error: isErrorMessages } = API.useMessages(chatId);
+  const { trigger } = API.useMessageAdd(chatId);
+
+  const newMessage = React.useCallback(
     (message) => {
-      setMessages((current) => [
-        {
-          id: current.length + 1,
-          message: message,
-          date: new Date(),
-          sender: "me",
-        },
-        ...current,
-      ]);
+      trigger({ chatId, message, sender: "me" });
       setTimeout(() => {
-        setMessages((current) => [
-          {
-            id: current.length + 1,
-            message: "I am a bot",
-            date: new Date(),
-            sender: "bot",
-          },
-          ...current,
-        ]);
+        trigger({ chatId, message: "I am a bot", sender: "bot" });
       }, Math.random() * 1000);
     },
-    [setMessages]
+    [chatId, trigger]
   );
 
   return (
     <S.Div className={className}>
-      <M.Toolbar chat={chat} />
+      {isLoadingChat && <div>Loading...</div>}
+      {isErrorChat && <div>Error: {isErrorChat.message}</div>}
+      {isLoadingMessages && !isLoadingChat && <div>Loading...</div>}
+      {isErrorMessages && !isLoadingChat && <div>Error: {isErrorMessages.message}</div>}
+
+      {!isLoadingChat && <M.Toolbar chat={chat} />}
       <List messages={messages} />
-      <M.Input handler={handler} />
+      <M.Input handler={newMessage} />
     </S.Div>
   );
 }
 
-function Toolbar({ chat }) {
+function Toolbar({ chat, isLoadingChat }) {
   return (
     <S.Header className="messagesToolbar">
       <ChatIcon />
       <div>
         <div className="header">{chat.chatHeading}</div>
-        <div>{chat.contacts.join(", ")}</div>
+        <div>{chat.contacts?.join(", ")}</div>
       </div>
     </S.Header>
   );

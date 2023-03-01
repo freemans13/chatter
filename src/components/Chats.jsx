@@ -3,16 +3,26 @@ import Toolbar from "./Toolbar";
 import ChatIcon from "./ChatIcon";
 import styled from "styled-components/macro";
 import React from "react";
+import * as API from "../api";
 
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
 
-function Chats({ className, chats }) {
+function Chats({ className, setChatId }) {
+  const { data: chats = [], isLoading, error } = API.useChats();
+
+  React.useEffect(() => {
+    //this is a hack to make the first chat selected
+    chats?.length > 0 && setChatId(chats[0].id);
+  }, [chats, setChatId]);
+
   return (
     <S.Div className={className}>
       <Toolbar />
       <Search />
-      <List chats={chats} />
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      <List chats={chats} setChatId={setChatId} />
     </S.Div>
   );
 }
@@ -32,19 +42,22 @@ function Search() {
   );
 }
 
-function List({ chats }) {
+function List({ chats, setChatId }) {
+  function handleOnClick(event) {
+    setChatId(event.currentTarget.attributes["data-chatid"].value);
+  }
   return (
     <S.Ul>
       {chats.map((chat) => (
-        <Item key={chat.id} chat={chat} />
+        <Item key={chat.id} chat={chat} onClick={handleOnClick} />
       ))}
     </S.Ul>
   );
 }
 
-function Item({ chat }) {
+function Item({ chat, onClick }) {
   return (
-    <S.Li>
+    <S.Li data-chatid={chat.id} onClick={onClick}>
       <ChatIcon />
       <section>
         <header>
@@ -54,7 +67,7 @@ function Item({ chat }) {
         <footer>
           <div className="sender">{chat.lastSender}: </div>
           <div className="lastMessage">{chat.lastMessage}</div>
-          <div className="unreadMessageCount">{chat.unreadMessageCount}</div>
+          {chat.unreadMessageCount > 0 && <div className="unreadMessageCount">{chat.unreadMessageCount}</div>}
         </footer>
       </section>
     </S.Li>
@@ -94,20 +107,11 @@ S.Li = styled.li`
     cursor: pointer;
   }
 
-  .icon {
-    /* image */
-    width: 48px;
-    height: 48px;
-    margin: 8px;
-    padding: 0 0 0 0px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: #ccc;
-  }
   section {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 0;
   }
   header {
     display: flex;
@@ -129,6 +133,9 @@ S.Li = styled.li`
   }
   .lastMessage {
     flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   footer.unreadMessageCount {
   }
