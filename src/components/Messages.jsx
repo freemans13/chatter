@@ -1,7 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import ChatIcon from "./ChatIcon";
-import * as API from "../api";
+/* eslint-disable max-len */
+import React from 'react';
+import { styled } from '@linaria/react';
+import ChatIcon from './ChatIcon';
+import * as API from '../api';
 
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
@@ -13,9 +14,9 @@ function Messages({ className, chatId }) {
 
   const newMessage = React.useCallback(
     (message) => {
-      trigger({ chatId, message, sender: "me" });
+      trigger({ chatId, message, sender: 'me' });
       setTimeout(() => {
-        trigger({ chatId, message: "I am a bot", sender: "bot" });
+        trigger({ chatId, message: 'I am a bot', sender: 'bot' });
       }, Math.random() * 1000);
     },
     [chatId, trigger]
@@ -35,13 +36,13 @@ function Messages({ className, chatId }) {
   );
 }
 
-function Toolbar({ chat, isLoadingChat }) {
+function Toolbar({ chat }) {
   return (
     <S.Header className="messagesToolbar">
       <ChatIcon />
       <div>
         <div className="header">{chat.chatHeading}</div>
-        <div>{chat.contacts?.join(", ")}</div>
+        <div>{chat.contacts?.join(', ')}</div>
       </div>
     </S.Header>
   );
@@ -60,9 +61,9 @@ function List({ messages }) {
 
 function Item({ message }) {
   return (
-    <S.Li className={`${message.sender === "me" ? "myself" : "other"}`}>
+    <S.Li className={`${message.sender === 'me' ? 'myself' : 'other'}`}>
       <span className="sender">{message.sender}</span>
-      <span className={`message`}>{message.message}</span>
+      <span className="message">{message.message}</span>
     </S.Li>
   );
 }
@@ -74,7 +75,7 @@ function Input({ handler }) {
     event.preventDefault();
     if (!ref.current.value) return;
     handler(ref.current.value);
-    ref.current.value = "";
+    ref.current.value = '';
   };
 
   return (

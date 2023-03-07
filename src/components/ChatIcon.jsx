@@ -1,5 +1,6 @@
-import PeopleSvg from "../assets/people.svg";
-import styled from "styled-components";
+import React from 'react';
+import { styled } from '@linaria/react';
+import PeopleSvg from '../assets/people.svg';
 
 const S = {}; // all Styled stuff here
 

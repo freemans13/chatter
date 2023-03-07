@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components/macro";
-import Chats from "./components/Chats";
-import Messages from "./components/Messages";
+import React from 'react';
+import { styled } from '@linaria/react';
+import Chats from './components/Chats';
+import Messages from './components/Messages';
 
 const S = {}; // all Styled stuff here
 

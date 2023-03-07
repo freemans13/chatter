@@ -1,9 +1,19 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import macrosPlugin from "vite-plugin-babel-macros";
-import eslint from "vite-plugin-eslint";
+/* eslint-disable import/no-extraneous-dependencies */
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import eslint from 'vite-plugin-eslint';
+import linaria from '@linaria/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), macrosPlugin(), eslint()],
+  plugins: [
+    react(),
+    eslint(),
+    linaria({
+      include: ['**/*.{js,jsx}'],
+      babelOptions: {
+        presets: ['@babel/preset-react'],
+      },
+    }),
+  ],
 });

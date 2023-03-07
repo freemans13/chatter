@@ -1,9 +1,9 @@
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import Toolbar from "./Toolbar";
-import ChatIcon from "./ChatIcon";
-import styled from "styled-components/macro";
-import React from "react";
-import * as API from "../api";
+import React from 'react';
+import { styled } from '@linaria/react';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import Toolbar from './Toolbar';
+import ChatIcon from './ChatIcon';
+import * as API from '../api';
 
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
@@ -12,8 +12,8 @@ function Chats({ className, setChatId }) {
   const { data: chats = [], isLoading, error } = API.useChats();
 
   React.useEffect(() => {
-    //this is a hack to make the first chat selected
-    chats?.length > 0 && setChatId(chats[0].id);
+    // this is a hack to make the first chat selected
+    if (chats?.length > 0) setChatId(chats[0].id);
   }, [chats, setChatId]);
 
   return (
@@ -33,7 +33,7 @@ function Search() {
   return (
     <S.Form>
       <fieldset>
-        <button>
+        <button type="submit">
           <MagnifyingGlassIcon width="24" height="24" />
         </button>
         <input type="search" placeholder="Search" />
@@ -43,9 +43,9 @@ function Search() {
 }
 
 function List({ chats, setChatId }) {
-  function handleOnClick(event) {
-    setChatId(event.currentTarget.attributes["data-chatid"].value);
-  }
+  const handleOnClick = (event) => {
+    setChatId(event.currentTarget.attributes['data-chatid'].value);
+  };
   return (
     <S.Ul>
       {chats.map((chat) => (
