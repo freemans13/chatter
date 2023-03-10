@@ -8,7 +8,7 @@ import * as API from '../api';
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
 
-function Chats({ className, setChatId }) {
+function Chats({ style, className, setChatId }) {
   const { data: chats = [], isLoading, error } = API.useChats();
 
   React.useEffect(() => {
@@ -17,7 +17,7 @@ function Chats({ className, setChatId }) {
   }, [chats, setChatId]);
 
   return (
-    <S.Div className={className}>
+    <S.Div style={style} className={className}>
       <Toolbar />
       <Search />
       {isLoading && <div>Loading...</div>}

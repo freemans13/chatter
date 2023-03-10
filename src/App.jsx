@@ -7,11 +7,12 @@ const S = {}; // all Styled stuff here
 
 function App() {
   const [chatId, setChatId] = React.useState();
+  const closeChatHandler = React.useCallback(() => setChatId(null), []);
 
   return (
     <S.Div>
-      <S.Chats setChatId={setChatId} />
-      <S.Messages chatId={chatId} />
+      <S.Chats style={{ '--display': chatId ? 'none' : 'revert' }} setChatId={setChatId} />
+      {chatId && <S.Messages chatId={chatId} closeChatHandler={closeChatHandler} />}
     </S.Div>
   );
 }
@@ -25,6 +26,12 @@ S.Div = styled.div`
 S.Chats = styled(Chats)`
   min-width: 300px;
   flex: 1;
+
+  @media (max-width: 600px) {
+    & {
+      display: var(--display);
+    }
+  }
 `;
 
 S.Messages = styled(Messages)`

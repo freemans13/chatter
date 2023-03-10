@@ -7,7 +7,7 @@ import * as API from '../api';
 const M = {}; // all Memo'd stuff here
 const S = {}; // all Styled stuff here
 
-function Messages({ className, chatId }) {
+function Messages({ className, chatId, closeChatHandler }) {
   const { data: chat = {}, isLoading: isLoadingChat, error: isErrorChat } = API.useChat(chatId);
   const { data: messages = [], isLoading: isLoadingMessages, error: isErrorMessages } = API.useMessages(chatId);
   const { trigger } = API.useMessageAdd(chatId);
@@ -29,16 +29,19 @@ function Messages({ className, chatId }) {
       {isLoadingMessages && !isLoadingChat && <div>Loading...</div>}
       {isErrorMessages && !isLoadingChat && <div>Error: {isErrorMessages.message}</div>}
 
-      {!isLoadingChat && <M.Toolbar chat={chat} />}
+      {!isLoadingChat && <M.Toolbar chat={chat} handleClick={closeChatHandler} />}
       <List messages={messages} />
       <M.Input handler={newMessage} />
     </S.Div>
   );
 }
 
-function Toolbar({ chat }) {
+function Toolbar({ chat, handleClick }) {
   return (
     <S.Header className="messagesToolbar">
+      <S.Button type="button" onClick={handleClick}>
+        &lt;
+      </S.Button>
       <ChatIcon />
       <div>
         <div className="header">{chat.chatHeading}</div>
@@ -100,6 +103,12 @@ S.Header = styled.header`
     padding-top: 8px;
     font-weight: bold;
   }
+`;
+S.Button = styled.button`
+  font-size: 2rem;
+  padding: 0 1rem;
+  margin: 0;
+  cursor: pointer;
 `;
 
 S.Ol = styled.ol`
