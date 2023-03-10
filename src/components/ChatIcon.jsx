@@ -16,7 +16,7 @@ S.Div = styled.div`
   width: 48px;
   height: 48px;
   margin: 8px;
-  padding: 0 0 0 0px;
+  padding: 0;
   border-radius: 50%;
   overflow: hidden;
   background-color: #ccc;

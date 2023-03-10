@@ -1,10 +1,11 @@
 import { styled } from '@linaria/react';
 
 const GlobalStyles = styled.div`
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
   :global() {
     /*
-  1. Use a more-intuitive box-sizing model.
-*/
+      1. Use a more-intuitive box-sizing model.
+    */
     *,
     *::before,
     *::after {
@@ -12,33 +13,34 @@ const GlobalStyles = styled.div`
     }
 
     /*
-  2. Remove default margin
-*/
+      2. Remove default margin
+    */
     * {
       margin: 0;
     }
 
     /*
-  3. Allow percentage-based heights in the application
-*/
+      3. Allow percentage-based heights in the application
+    */
     html,
-    body {
+    body,
+    #root {
       height: 100%;
     }
 
     /*
-  Typographic tweaks!
-  4. Add accessible line-height
-  5. Improve text rendering
-*/
+      Typographic tweaks!
+      4. Add accessible line-height
+      5. Improve text rendering
+    */
     body {
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
 
     /*
-  6. Improve media defaults
-*/
+      6. Improve media defaults
+    */
     img,
     picture,
     video,
@@ -49,8 +51,8 @@ const GlobalStyles = styled.div`
     }
 
     /*
-  7. Remove built-in form typography styles
-*/
+      7. Remove built-in form typography styles
+    */
     input,
     button,
     textarea,
@@ -59,8 +61,8 @@ const GlobalStyles = styled.div`
     }
 
     /*
-  8. Avoid text overflows
-*/
+      8. Avoid text overflows
+    */
     p,
     h1,
     h2,
@@ -72,8 +74,9 @@ const GlobalStyles = styled.div`
     }
 
     /*
-  9. Create a root stacking context
-*/
+      9. Create a root stacking context
+    */
+    /* stylelint-disable-next-line selector-id-pattern */
     #root,
     #__next {
       isolation: isolate;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 const chats = [
   {
     id: '1',
@@ -9,7 +10,7 @@ const chats = [
     contacts: ['Gary', 'Rich', 'Harry', 'Sam', 'Tom', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Beautiful Barlows',
     lastSender: 'Adam',
     lastMessage: "Can you collect the cakes? I'm stuck in traffic and it's going to be a long time before I'm home.",
@@ -18,7 +19,7 @@ const chats = [
     contacts: ['Adam', 'Becky', 'Maz', 'Ross', 'Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Freemans',
     lastSender: 'Stu',
     lastMessage: 'Brilliant 😀',
@@ -27,7 +28,7 @@ const chats = [
     contacts: ['Harry', 'Tom', 'Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'John',
     lastSender: 'John',
     lastMessage: 'Never mind. No worries.',
@@ -36,7 +37,7 @@ const chats = [
     contacts: ['John', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Sam',
     lastSender: 'Stu',
     lastMessage: 'Love you too',
@@ -45,7 +46,7 @@ const chats = [
     contacts: ['Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Harry',
     lastSender: 'Stu',
     lastMessage: 'Sorted',
@@ -54,7 +55,7 @@ const chats = [
     contacts: ['Harry', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Kingswood Firs Job',
     lastSender: 'Gary',
     lastMessage: "I'm going to be late",
@@ -63,7 +64,7 @@ const chats = [
     contacts: ['Gary', 'Rich', 'Harry', 'Sam', 'Tom', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Beautiful Barlows',
     lastSender: 'Adam',
     lastMessage: "Can you collect the cakes? I'm stuck in traffic and it's going to be a long time before I'm home.",
@@ -72,7 +73,7 @@ const chats = [
     contacts: ['Adam', 'Becky', 'Maz', 'Ross', 'Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Freemans',
     lastSender: 'Stu',
     lastMessage: 'Brilliant 😀',
@@ -81,7 +82,7 @@ const chats = [
     contacts: ['Harry', 'Tom', 'Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'John',
     lastSender: 'John',
     lastMessage: 'Never mind. No worries.',
@@ -90,7 +91,7 @@ const chats = [
     contacts: ['John', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Sam',
     lastSender: 'Stu',
     lastMessage: 'Love you too',
@@ -99,7 +100,7 @@ const chats = [
     contacts: ['Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Harry',
     lastSender: 'Stu',
     lastMessage: 'Sorted',
@@ -108,7 +109,7 @@ const chats = [
     contacts: ['Harry', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Kingswood Firs Job',
     lastSender: 'Gary',
     lastMessage: "I'm going to be late",
@@ -117,7 +118,7 @@ const chats = [
     contacts: ['Gary', 'Rich', 'Harry', 'Sam', 'Tom', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Beautiful Barlows',
     lastSender: 'Adam',
     lastMessage: "Can you collect the cakes? I'm stuck in traffic and it's going to be a long time before I'm home.",
@@ -126,7 +127,7 @@ const chats = [
     contacts: ['Adam', 'Becky', 'Maz', 'Ross', 'Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Freemans',
     lastSender: 'Stu',
     lastMessage: 'Brilliant 😀',
@@ -135,7 +136,7 @@ const chats = [
     contacts: ['Harry', 'Tom', 'Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'John',
     lastSender: 'John',
     lastMessage: 'Never mind. No worries.',
@@ -144,7 +145,7 @@ const chats = [
     contacts: ['John', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Sam',
     lastSender: 'Stu',
     lastMessage: 'Love you too',
@@ -153,7 +154,7 @@ const chats = [
     contacts: ['Sam', 'Stu'],
   },
   {
-    id: crypto.randomUUID(),
+    id: (Math.random().toString(16) + '000000000').substring(2, 15),
     chatHeading: 'Harry',
     lastSender: 'Stu',
     lastMessage: 'Sorted',

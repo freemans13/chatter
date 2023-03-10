@@ -91,11 +91,11 @@ M.Input = React.memo(Input);
 S.Div = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
 `;
 
 S.Header = styled.header`
   display: flex;
+
   .header {
     padding-top: 8px;
     font-weight: bold;
@@ -107,7 +107,6 @@ S.Ol = styled.ol`
   flex-direction: column-reverse;
   gap: 8px;
   list-style-type: none;
-  height: 100vh;
   overflow-y: auto;
   flex: 1;
   padding-left: 0.75em;
@@ -119,10 +118,12 @@ S.Li = styled.li`
   border-radius: 16px;
   padding: 8px;
   width: fit-content;
+
   &.myself {
     background-color: chocolate;
     align-self: flex-end;
   }
+
   .sender {
     display: none;
   }
@@ -131,8 +132,8 @@ S.Li = styled.li`
 S.Form = styled.form`
   fieldset {
     border: none;
-    /* flex: 1; */
   }
+
   input {
     width: 100%;
   }

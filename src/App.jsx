@@ -19,6 +19,7 @@ function App() {
 S.Div = styled.div`
   display: flex;
   gap: 16px;
+  height: 100%;
 `;
 
 S.Chats = styled(Chats)`

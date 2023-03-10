@@ -66,7 +66,7 @@ function Item({ chat, onClick }) {
         </header>
         <footer>
           <div className="sender">{chat.lastSender}: </div>
-          <div className="lastMessage">{chat.lastMessage}</div>
+          <div className="last-message">{chat.lastMessage}</div>
           {chat.unreadMessageCount > 0 && <div className="unreadMessageCount">{chat.unreadMessageCount}</div>}
         </footer>
       </section>
@@ -77,7 +77,7 @@ function Item({ chat, onClick }) {
 S.Div = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100%;
 `;
 
 S.Form = styled.form`
@@ -87,6 +87,7 @@ S.Form = styled.form`
     padding: 4px;
     background-color: #eee;
   }
+
   input {
     flex: 1;
   }
@@ -95,6 +96,7 @@ S.Form = styled.form`
 S.Ul = styled.ul`
   padding: 0;
   overflow-y: auto;
+
   /* list-style-type: none; */
 `;
 
@@ -113,31 +115,34 @@ S.Li = styled.li`
     flex: 1;
     min-width: 0;
   }
+
   header {
     display: flex;
     padding: 0 4px;
     padding-top: 8px;
   }
+
   header .header {
     flex: 1;
     font-weight: bold;
   }
-  footer:first-child {
-    border-bottom: 1px solid #ccc;
-  }
+
   footer {
     display: flex;
-    padding: 0 4px 8px 4px;
+    padding: 0 4px 8px;
     gap: 8px;
     border-bottom: 1px solid #ccc;
   }
-  .lastMessage {
+
+  footer:first-child {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .last-message {
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  footer.unreadMessageCount {
   }
 `;
 
