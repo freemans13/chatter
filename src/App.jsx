@@ -1,13 +1,24 @@
 import React from 'react';
 import { styled } from '@linaria/react';
+import { useAuth0 } from '@auth0/auth0-react';
 import Chats from './components/Chats';
 import Messages from './components/Messages';
 
 const S = {}; // all Styled stuff here
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
+  const { isLoading, error } = useAuth0();
   const [chatId, setChatId] = React.useState();
   const closeChatHandler = React.useCallback(() => setChatId(null), []);
+
+  // if (error) {
+  //   return <div>Oops... {error.message}</div>;
+  // }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <S.Div>
