@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
 import stylelint from 'vite-plugin-stylelint';
 import linaria from '@linaria/vite';
+import mix from 'vite-plugin-mix';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +19,9 @@ export default defineConfig({
       babelOptions: {
         presets: ['@babel/preset-react'],
       },
+    }),
+    mix.default({
+      handler: './api-server.js',
     }),
   ],
 });
