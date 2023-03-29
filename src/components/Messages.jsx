@@ -109,6 +109,12 @@ S.Button = styled.button`
   padding: 0 1rem;
   margin: 0;
   cursor: pointer;
+
+  @media (min-width: 600px) {
+    & {
+      display: none;
+    }
+  }
 `;
 
 S.Ol = styled.ol`
