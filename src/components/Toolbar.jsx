@@ -5,13 +5,31 @@ import './Toolbar.css';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export default function ToolbarComponent() {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
   const logoutWithRedirect = () =>
     logout({
       logoutParams: {
         returnTo: window.location.origin,
       },
     });
+
+  React.useEffect(() => {
+    const doit = async () => {
+      const config = {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${await getAccessTokenSilently()}`,
+        },
+      };
+
+      const result = await fetch(`http://localhost:5173/api/external`, config);
+      const data = await result.json();
+      // eslint-disable-next-line no-console
+      console.log({ result, data });
+    };
+    doit();
+  }, []);
 
   return (
     <Toolbar.Root className="ToolbarRoot" aria-label="Chat options">
@@ -29,7 +47,7 @@ export default function ToolbarComponent() {
       )}
       {isAuthenticated && (
         <Toolbar.Button className="ToolbarButton" onClick={() => logoutWithRedirect()}>
-          Log out {user.name}
+          Log out {user.preferred_username}
         </Toolbar.Button>
       )}
     </Toolbar.Root>

@@ -1,0 +1,7 @@
+{
+  "domain": "dev-3lbna1jit6lextbd.us.auth0.com",
+  "clientId": "RoGziPWuN22DVZqQU0Z1VMs7Rf9B4XlP",
+  "audience": "https://dev-3lbna1jit6lextbd.us.auth0.com/api/v2/",
+  "redirectUri": "http://localhost:5173/callback",
+  "appOrigin": "http://localhost:5173"
+}

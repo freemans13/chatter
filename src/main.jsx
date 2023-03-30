@@ -1,38 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable comma-dangle */
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-import { Auth0Provider } from '@auth0/auth0-react';
-import getConfig from './config';
+import AuthenticationProviderWithNavigate from './auth0/AuthenticationProviderWithNavigate';
 import App from './App';
+import Callback from './components/Callback';
 import GlobalStyles from './GlobalStyles';
-
-// eslint-disable-next-line no-unused-vars
-const onRedirectCallback = (appState) => {
-  // history.push(
-  //   appState && appState.returnTo ? appState.returnTo : window.location.pathname
-  // );
-};
-
-// Please see https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html
-// for a full list of the available properties on the provider
-const config = getConfig();
-
-const providerConfig = {
-  domain: config.domain,
-  clientId: config.clientId,
-  onRedirectCallback,
-  authorizationParams: {
-    redirect_uri: window.location.origin,
-    ...(config.audience ? { audience: config.audience } : null),
-  },
-};
+import AuthenticationGuard from './auth0/AuthenticationGuard';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
     <GlobalStyles />
-    <Auth0Provider {...providerConfig}>
-      <App />
-    </Auth0Provider>
-  </React.StrictMode>
+    <AuthenticationProviderWithNavigate>
+      <Routes>
+        <Route path="/" element={<AuthenticationGuard component={App} />} />
+        <Route path="/callback" element={<Callback />} />
+      </Routes>
+    </AuthenticationProviderWithNavigate>
+  </BrowserRouter>
+  // </React.StrictMode>
 );

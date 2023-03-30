@@ -21,7 +21,7 @@ export default defineConfig({
       },
     }),
     mix.default({
-      handler: './api-server.js',
+      handler: './src/server/api-server.js',
     }),
   ],
 });

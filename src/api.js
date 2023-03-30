@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 import sample from './sample';
 
-const DELAY = 1000;
+const DELAY = 1;
 // const fetcher = (url) => fetch(url).then((r) => r.json());
 const chatsFetcher = () =>
   new Promise((resolve) => {
