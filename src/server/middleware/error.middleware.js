@@ -1,6 +1,8 @@
 import { InvalidTokenError, UnauthorizedError } from 'express-oauth2-jwt-bearer';
 
 export default function errorHandler(error, request, response, next) {
+  // eslint-disable-next-line no-console
+  console.error(error);
   if (response.headersSent) {
     return next(error);
   }
