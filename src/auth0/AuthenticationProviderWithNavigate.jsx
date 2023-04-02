@@ -24,8 +24,9 @@ export default function AuthenticationProviderWithNavigate({ children }) {
         redirect_uri: config.redirectUri,
         audience: config.audience,
         scope: 'openid profile email user_metadata read:current_user_metadata update:current_user_metadata',
-        // cacheLocation: 'localstorage', // doesn't seem to do anything! localstorage or memory
       }}
+      useRefreshTokens
+      cacheLocation="localstorage"
       onRedirectCallback={onRedirectCallback}
     >
       {children}
